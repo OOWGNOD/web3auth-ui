@@ -28,9 +28,9 @@ export default function SocialLoginEmail(props: SocialLoginEmailProps) {
         </button>
       </form>
       <div className="w3a-group__metamask_btn">
-          <div>
-            <p>Metamask</p>
-          </div>
+        <div>
+          <p>Metamask</p>
+        </div>
       </div>
     </div>
   );
