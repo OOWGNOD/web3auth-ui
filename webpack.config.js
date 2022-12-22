@@ -1,33 +1,51 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-function generateWebpackConfig({ pkg, currentPath, alias, module = {}, ssrModule = null, pkgBaseConfig = {} }) {
-  const depsList = Object.keys(pkg.dependencies);
-  const baseConfig = {
-    ...pkgBaseConfig,
-    resolve: {
-      plugins: [new TsconfigPathsPlugin()],
-      alias: {
-        ...(depsList.includes("bn.js") && { "bn.js": path.resolve(currentPath, "node_modules/bn.js") }),
-        lodash: path.resolve(__dirname, "node_modules/lodash-es"),
-        ...alias,
-      },
-      fallback: {
-        "bn.js": require.resolve("bn.js"),
-      },
+const generateWebpackConfig = require("../../webpack.config");
+
+const pkg = require("./package.json");
+
+const currentPath = path.resolve(".");
+
+const ssrModule = {
+  rules: [
+    {
+      test: /\.css$/,
+      use: [
+        "isomorphic-style-loader",
+        {
+          loader: "css-loader",
+        },
+      ],
     },
-  };
+    {
+      test: /\.svg$/,
+      exclude: /node_modules/,
+      use: ["@svgr/webpack", "url-loader"],
+    },
+  ],
+};
 
-  const config = { baseConfig };
-  config.umdConfig = {
-    module,
-  };
+const config = generateWebpackConfig({
+  currentPath,
+  pkg,
+  alias: {},
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          { loader: "style-loader", options: {} },
+          { loader: "css-loader", options: {} },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        exclude: /node_modules/,
+        use: ["@svgr/webpack", "url-loader"],
+      },
+    ],
+  },
+  ssrModule,
+});
 
-  config.cjsConfig = {
-    module: ssrModule || module,
-  };
-
-  return config;
-}
-
-module.exports = generateWebpackConfig;
+module.exports = config;
