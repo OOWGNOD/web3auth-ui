@@ -1,5 +1,6 @@
 import { SafeEventEmitter } from "@toruslabs/openlogin-jrpc";
 import { BaseAdapterConfig, IWalletConnectExtensionAdapter, LoginMethodConfig, WALLET_ADAPTER_TYPE } from "@web3auth/base";
+import { FC } from "react";
 export interface UIConfig {
     appLogo: string;
     version: string;
@@ -7,6 +8,7 @@ export interface UIConfig {
     theme?: "light" | "dark";
     loginMethodsOrder?: string[];
     displayErrorsOnModal?: boolean;
+    MetamaskLogin: FC;
 }
 export declare const LOGIN_MODAL_EVENTS: {
     INIT_EXTERNAL_WALLETS: string;
@@ -14,7 +16,7 @@ export declare const LOGIN_MODAL_EVENTS: {
     DISCONNECT: string;
     MODAL_VISIBILITY: string;
 };
-export declare type SocialLoginsConfig = {
+export type SocialLoginsConfig = {
     loginMethodsOrder: string[];
     loginMethods: LoginMethodConfig;
     adapter: WALLET_ADAPTER_TYPE;
@@ -25,7 +27,7 @@ export declare const MODAL_STATUS: {
     CONNECTING: string;
     ERRORED: string;
 };
-export declare type ModalStatusType = typeof MODAL_STATUS[keyof typeof MODAL_STATUS];
+export type ModalStatusType = typeof MODAL_STATUS[keyof typeof MODAL_STATUS];
 export interface ModalState {
     status: ModalStatusType;
     externalWalletsInitialized: boolean;
@@ -41,13 +43,13 @@ export interface ModalState {
     showExternalWalletsOnly: boolean;
     wcAdapters: IWalletConnectExtensionAdapter[];
 }
-export declare type SocialLoginEventType = {
+export type SocialLoginEventType = {
     adapter: string;
     loginParams: {
         loginProvider: string;
         login_hint?: string;
     };
 };
-export declare type ExternalWalletEventType = {
+export type ExternalWalletEventType = {
     adapter: string;
 };

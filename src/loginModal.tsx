@@ -14,6 +14,7 @@ import {
   WalletConnectV1Data,
   Web3AuthError,
 } from "@web3auth/base";
+import { FC } from "react";
 import { render } from "react-dom";
 
 import Modal from "./components/Modal";
@@ -39,7 +40,9 @@ export default class LoginModal extends SafeEventEmitter {
 
   private displayErrorsOnModal = true;
 
-  constructor({ appLogo, version, adapterListener, theme = "light", displayErrorsOnModal = true }: UIConfig) {
+  private MetamaskLogin: FC;
+
+  constructor({ appLogo, version, adapterListener, theme = "light", displayErrorsOnModal = true, MetamaskLogin }: UIConfig) {
     super();
     this.appLogo = appLogo || DEFAULT_LOGO_URL;
     this.version = version;
@@ -47,6 +50,7 @@ export default class LoginModal extends SafeEventEmitter {
     this.stateEmitter = new SafeEventEmitter();
     this.displayErrorsOnModal = displayErrorsOnModal;
     this.subscribeCoreEvents(adapterListener);
+    this.MetamaskLogin = MetamaskLogin;
   }
 
   initModal = async (): Promise<void> => {
@@ -71,6 +75,7 @@ export default class LoginModal extends SafeEventEmitter {
             handleSocialLoginClick={(params) => this.handleSocialLoginClick(params)}
             appLogo={this.appLogo}
             version={this.version}
+            MetamaskLogin={this.MetamaskLogin}
           />
         </ThemedContext.Provider>,
         createWrapper()

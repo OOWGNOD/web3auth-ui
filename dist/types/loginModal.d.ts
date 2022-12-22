@@ -8,7 +8,8 @@ export default class LoginModal extends SafeEventEmitter {
     private isDark;
     private stateEmitter;
     private displayErrorsOnModal;
-    constructor({ appLogo, version, adapterListener, theme, displayErrorsOnModal }: UIConfig);
+    private MetamaskLogin;
+    constructor({ appLogo, version, adapterListener, theme, displayErrorsOnModal, MetamaskLogin }: UIConfig);
     initModal: () => Promise<void>;
     addSocialLogins: (adapter: WALLET_ADAPTER_TYPE, loginMethods: LoginMethodConfig, loginMethodsOrder: string[]) => void;
     addWalletLogins: (externalWalletsConfig: Record<string, BaseAdapterConfig>, options: {

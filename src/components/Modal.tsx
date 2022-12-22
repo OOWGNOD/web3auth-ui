@@ -3,7 +3,7 @@ import type { SafeEventEmitter } from "@toruslabs/openlogin-jrpc";
 import { log, WALLET_ADAPTERS } from "@web3auth/base";
 import cloneDeep from "lodash.clonedeep";
 import deepmerge from "lodash.merge";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 import { ThemedContext } from "../context/ThemeContext";
 import { ExternalWalletEventType, MODAL_STATUS, ModalState, SocialLoginEventType } from "../interfaces";
@@ -23,6 +23,7 @@ interface ModalProps {
   handleExternalWalletClick: (params: ExternalWalletEventType) => void;
   handleShowExternalWallets: (externalWalletsInitialized: boolean) => void;
   closeModal: () => void;
+  MetamaskLogin: FC;
 }
 
 log.enableAll();
@@ -50,7 +51,8 @@ export default function Modal(props: ModalProps) {
     wcAdapters: [],
   });
 
-  const { stateListener, appLogo, version, handleSocialLoginClick, handleExternalWalletClick, handleShowExternalWallets, closeModal } = props;
+  const { stateListener, appLogo, version, handleSocialLoginClick, handleExternalWalletClick, handleShowExternalWallets, closeModal, MetamaskLogin } =
+    props;
   const DETAILED_ADAPTERS = [WALLET_ADAPTERS.PHANTOM, WALLET_ADAPTERS.METAMASK];
 
   useEffect(() => {
@@ -195,6 +197,7 @@ export default function Modal(props: ModalProps) {
                     <SocialLoginEmail
                       adapter={modalState.socialLoginsConfig?.adapter}
                       handleSocialLoginClick={(params: SocialLoginEventType) => preHandleSocialWalletClick(params)}
+                      MetamaskLogin={MetamaskLogin}
                     />
                   )}
 

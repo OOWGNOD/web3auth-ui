@@ -1,5 +1,6 @@
 import { SafeEventEmitter } from "@toruslabs/openlogin-jrpc";
 import { BaseAdapterConfig, IWalletConnectExtensionAdapter, LoginMethodConfig, WALLET_ADAPTER_TYPE } from "@web3auth/base";
+import { FC } from "react";
 
 export interface UIConfig {
   appLogo: string;
@@ -8,6 +9,7 @@ export interface UIConfig {
   theme?: "light" | "dark";
   loginMethodsOrder?: string[];
   displayErrorsOnModal?: boolean;
+  MetamaskLogin: FC;
 }
 
 export const LOGIN_MODAL_EVENTS = {

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import { FC } from "react";
 interface SocialLoginEmailProps {
     adapter: string;
     handleSocialLoginClick: (params: {
@@ -8,6 +8,7 @@ interface SocialLoginEmailProps {
             login_hint?: string;
         };
     }) => void;
+    MetamaskLogin: FC;
 }
 export default function SocialLoginEmail(props: SocialLoginEmailProps): JSX.Element;
 export {};

@@ -1,11 +1,12 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
 
 interface SocialLoginEmailProps {
   adapter: string;
   handleSocialLoginClick: (params: { adapter: string; loginParams: { loginProvider: string; login_hint?: string } }) => void;
+  MetamaskLogin: FC;
 }
 export default function SocialLoginEmail(props: SocialLoginEmailProps) {
-  const { handleSocialLoginClick, adapter } = props;
+  const { handleSocialLoginClick, adapter, MetamaskLogin } = props;
   const [isValidEmail, setIsValidEmail] = useState(false);
 
   const handleEmailSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -18,6 +19,7 @@ export default function SocialLoginEmail(props: SocialLoginEmailProps) {
     const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     setIsValidEmail(!!emailValid);
   };
+
   return (
     <div className="w3ajs-email-passwordless w3a-group w3a-group--email">
       <div className="w3a-group__title">EMAIL</div>
@@ -27,11 +29,7 @@ export default function SocialLoginEmail(props: SocialLoginEmailProps) {
           Continue with Email
         </button>
       </form>
-      <div className="w3a-group__metamask_btn">
-        <div>
-          <p>Metamask</p>
-        </div>
-      </div>
+      <MetamaskLogin />
     </div>
   );
 }

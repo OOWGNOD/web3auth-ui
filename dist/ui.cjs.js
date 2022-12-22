@@ -60,68 +60,55 @@ ___CSS_LOADER_EXPORT___.push([module.id, "/* devanagari */\n@font-face {\n  font
   Author Tobias Koppers @sokra
 */
 module.exports = function (cssWithMappingToString) {
-  var list = []; // return the list of modules as css string
+  var list = [];
 
+  // return the list of modules as css string
   list.toString = function toString() {
     return this.map(function (item) {
       var content = "";
       var needLayer = typeof item[5] !== "undefined";
-
       if (item[4]) {
         content += "@supports (".concat(item[4], ") {");
       }
-
       if (item[2]) {
         content += "@media ".concat(item[2], " {");
       }
-
       if (needLayer) {
         content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
       }
-
       content += cssWithMappingToString(item);
-
       if (needLayer) {
         content += "}";
       }
-
       if (item[2]) {
         content += "}";
       }
-
       if (item[4]) {
         content += "}";
       }
-
       return content;
     }).join("");
-  }; // import a list of modules into the list
+  };
 
-
+  // import a list of modules into the list
   list.i = function i(modules, media, dedupe, supports, layer) {
     if (typeof modules === "string") {
       modules = [[null, modules, undefined]];
     }
-
     var alreadyImportedModules = {};
-
     if (dedupe) {
       for (var k = 0; k < this.length; k++) {
         var id = this[k][0];
-
         if (id != null) {
           alreadyImportedModules[id] = true;
         }
       }
     }
-
     for (var _k = 0; _k < modules.length; _k++) {
       var item = [].concat(modules[_k]);
-
       if (dedupe && alreadyImportedModules[item[0]]) {
         continue;
       }
-
       if (typeof layer !== "undefined") {
         if (typeof item[5] === "undefined") {
           item[5] = layer;
@@ -130,7 +117,6 @@ module.exports = function (cssWithMappingToString) {
           item[5] = layer;
         }
       }
-
       if (media) {
         if (!item[2]) {
           item[2] = media;
@@ -139,7 +125,6 @@ module.exports = function (cssWithMappingToString) {
           item[2] = media;
         }
       }
-
       if (supports) {
         if (!item[4]) {
           item[4] = "".concat(supports);
@@ -148,11 +133,9 @@ module.exports = function (cssWithMappingToString) {
           item[4] = supports;
         }
       }
-
       list.push(item);
     }
   };
-
   return list;
 };
 
@@ -167,21 +150,15 @@ module.exports = function (cssWithMappingToString) {
 module.exports = function (item) {
   var content = item[1];
   var cssMapping = item[3];
-
   if (!cssMapping) {
     return content;
   }
-
   if (typeof btoa === "function") {
     var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
     var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
     var sourceMapping = "/*# ".concat(data, " */");
-    var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
-    });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
+    return [content].concat([sourceMapping]).join("\n");
   }
-
   return [content].join("\n");
 };
 
@@ -463,23 +440,49 @@ __webpack_require__.d(__webpack_exports__, {
 const openlogin_namespaceObject = require("@toruslabs/openlogin");
 ;// CONCATENATED MODULE: ./src/config.ts
 
-const OPENLOGIN_PROVIDERS = Object.values(openlogin_namespaceObject.LOGIN_PROVIDER).filter(x => x !== openlogin_namespaceObject.LOGIN_PROVIDER.WEBAUTHN && x !== openlogin_namespaceObject.LOGIN_PROVIDER.JWT);
+var OPENLOGIN_PROVIDERS = Object.values(openlogin_namespaceObject.LOGIN_PROVIDER).filter(function (x) {
+  return x !== openlogin_namespaceObject.LOGIN_PROVIDER.WEBAUTHN && x !== openlogin_namespaceObject.LOGIN_PROVIDER.JWT;
+});
 ;// CONCATENATED MODULE: ./src/interfaces.ts
-const LOGIN_MODAL_EVENTS = {
+var LOGIN_MODAL_EVENTS = {
   INIT_EXTERNAL_WALLETS: "INIT_EXTERNAL_WALLETS",
   LOGIN: "LOGIN",
   DISCONNECT: "DISCONNECT",
   MODAL_VISIBILITY: "MODAL_VISIBILITY"
 };
-const MODAL_STATUS = {
+var MODAL_STATUS = {
   INITIALIZED: "initialized",
   CONNECTED: "connected",
   CONNECTING: "connecting",
   ERRORED: "errored"
 };
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/asyncToGenerator"
+const asyncToGenerator_namespaceObject = require("@babel/runtime/helpers/asyncToGenerator");
+var asyncToGenerator_default = /*#__PURE__*/__webpack_require__.n(asyncToGenerator_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/createClass"
+const createClass_namespaceObject = require("@babel/runtime/helpers/createClass");
+var createClass_default = /*#__PURE__*/__webpack_require__.n(createClass_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/classCallCheck"
+const classCallCheck_namespaceObject = require("@babel/runtime/helpers/classCallCheck");
+var classCallCheck_default = /*#__PURE__*/__webpack_require__.n(classCallCheck_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/assertThisInitialized"
+const assertThisInitialized_namespaceObject = require("@babel/runtime/helpers/assertThisInitialized");
+var assertThisInitialized_default = /*#__PURE__*/__webpack_require__.n(assertThisInitialized_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/inherits"
+const inherits_namespaceObject = require("@babel/runtime/helpers/inherits");
+var inherits_default = /*#__PURE__*/__webpack_require__.n(inherits_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/possibleConstructorReturn"
+const possibleConstructorReturn_namespaceObject = require("@babel/runtime/helpers/possibleConstructorReturn");
+var possibleConstructorReturn_default = /*#__PURE__*/__webpack_require__.n(possibleConstructorReturn_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/getPrototypeOf"
+const getPrototypeOf_namespaceObject = require("@babel/runtime/helpers/getPrototypeOf");
+var getPrototypeOf_default = /*#__PURE__*/__webpack_require__.n(getPrototypeOf_namespaceObject);
 ;// CONCATENATED MODULE: external "@babel/runtime/helpers/defineProperty"
 const defineProperty_namespaceObject = require("@babel/runtime/helpers/defineProperty");
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty_namespaceObject);
+;// CONCATENATED MODULE: external "@babel/runtime/regenerator"
+const regenerator_namespaceObject = require("@babel/runtime/regenerator");
+var regenerator_default = /*#__PURE__*/__webpack_require__.n(regenerator_namespaceObject);
 // EXTERNAL MODULE: ./css/web3auth.css
 var web3auth = __webpack_require__(403);
 ;// CONCATENATED MODULE: external "@toruslabs/openlogin-jrpc"
@@ -488,6 +491,9 @@ const openlogin_jrpc_namespaceObject = require("@toruslabs/openlogin-jrpc");
 const base_namespaceObject = require("@web3auth/base");
 ;// CONCATENATED MODULE: external "react-dom"
 const external_react_dom_namespaceObject = require("react-dom");
+;// CONCATENATED MODULE: external "@babel/runtime/helpers/slicedToArray"
+const slicedToArray_namespaceObject = require("@babel/runtime/helpers/slicedToArray");
+var slicedToArray_default = /*#__PURE__*/__webpack_require__.n(slicedToArray_namespaceObject);
 ;// CONCATENATED MODULE: external "lodash.clonedeep"
 const external_lodash_clonedeep_namespaceObject = require("lodash.clonedeep");
 var external_lodash_clonedeep_default = /*#__PURE__*/__webpack_require__.n(external_lodash_clonedeep_namespaceObject);
@@ -498,16 +504,12 @@ var external_lodash_merge_default = /*#__PURE__*/__webpack_require__.n(external_
 var external_react_ = __webpack_require__(497);
 ;// CONCATENATED MODULE: ./src/context/ThemeContext.tsx
 
-const ThemedContext = /*#__PURE__*/(0,external_react_.createContext)({
+var ThemedContext = /*#__PURE__*/(0,external_react_.createContext)({
   isDark: true // default value
-
 });
 ;// CONCATENATED MODULE: ./assets/icons/circle-arrow-left.svg
 var _path;
-
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-
 
 const SvgCircleArrowLeft = props => /*#__PURE__*/React.createElement("svg", _extends({
   width: 24,
@@ -521,14 +523,10 @@ const SvgCircleArrowLeft = props => /*#__PURE__*/React.createElement("svg", _ext
   fill: "#D3D3D4"
 })));
 
-
 /* harmony default export */ const circle_arrow_left = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IjI0IC8gYXJyb3dzIC8gY2lyY2xlLWFycm93LWxlZnQiPgo8cGF0aCBpZD0iaWNvbiIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMiAyM0M1LjkyNDg3IDIzIDEgMTguMDc1MSAxIDEyQzEgNS45MjQ4NyA1LjkyNDg3IDEgMTIgMUMxOC4wNzUxIDEgMjMgNS45MjQ4NyAyMyAxMkMyMyAxOC4wNzUxIDE4LjA3NTEgMjMgMTIgMjNaTTEyIDIxQzE2Ljk3MDYgMjEgMjEgMTYuOTcwNiAyMSAxMkMyMSA3LjAyOTQ0IDE2Ljk3MDYgMyAxMiAzQzcuMDI5NDQgMyAzIDcuMDI5NDQgMyAxMkMzIDE2Ljk3MDYgNy4wMjk0NCAyMSAxMiAyMVpNMTcgMTFIMTAuNDE0MkwxMi43MDcxIDguNzA3MTFMMTEuMjkyOSA3LjI5Mjg5TDYuNTg1NzkgMTJMMTEuMjkyOSAxNi43MDcxTDEyLjcwNzEgMTUuMjkyOUwxMC40MTQyIDEzSDE3VjExWiIgZmlsbD0iI0QzRDNENCIvPgo8L2c+Cjwvc3ZnPgo=");
 ;// CONCATENATED MODULE: ./assets/icons/close.svg
 var close_path;
-
 function close_extends() { close_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return close_extends.apply(this, arguments); }
-
-
 
 const SvgClose = props => /*#__PURE__*/React.createElement("svg", close_extends({
   width: 24,
@@ -542,14 +540,10 @@ const SvgClose = props => /*#__PURE__*/React.createElement("svg", close_extends(
   fill: "#DFDFDF"
 })));
 
-
 /* harmony default export */ const icons_close = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMy40MTQyIDEyTDE5Ljc3ODIgMTguMzY0TDE4LjM2NCAxOS43NzgyTDEyIDEzLjQxNDNMNS42MzYwNCAxOS43NzgyTDQuMjIxODMgMTguMzY0TDEwLjU4NTggMTJMNC4yMjE4MyA1LjYzNjA4TDUuNjM2MDQgNC4yMjE4N0wxMiAxMC41ODU4TDE4LjM2NCA0LjIyMTg3TDE5Ljc3ODIgNS42MzYwOEwxMy40MTQyIDEyWiIgZmlsbD0iI0RGREZERiIvPgo8L3N2Zz4K");
 ;// CONCATENATED MODULE: ./assets/icons/expand.svg
 var expand_path;
-
 function expand_extends() { expand_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return expand_extends.apply(this, arguments); }
-
-
 
 const SvgExpand = props => /*#__PURE__*/React.createElement("svg", expand_extends({
   width: 24,
@@ -561,14 +555,10 @@ const SvgExpand = props => /*#__PURE__*/React.createElement("svg", expand_extend
   fill: "#B7B8BD"
 })));
 
-
 /* harmony default export */ const expand = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjA5OTEgMTUuNjc4NUMxMS42OTQgMTYuMTA3MiAxMS4wMTE5IDE2LjEwNzIgMTAuNjA2OCAxNS42Nzg1TDQuOTg4MjggOS43MzEzNkM0LjM2OTg4IDkuMDc2OCA0LjgzMzkzIDggNS43MzQ0MSA4TDE2Ljk3MTUgOEMxNy44NzIgOCAxOC4zMzYgOS4wNzY4IDE3LjcxNzYgOS43MzEzNkwxMi4wOTkxIDE1LjY3ODVaIiBmaWxsPSIjQjdCOEJEIi8+Cjwvc3ZnPgo=");
 ;// CONCATENATED MODULE: ./assets/icons/expand-light.svg
 var expand_light_path;
-
 function expand_light_extends() { expand_light_extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return expand_light_extends.apply(this, arguments); }
-
-
 
 const SvgExpandLight = props => /*#__PURE__*/React.createElement("svg", expand_light_extends({
   width: 24,
@@ -580,7 +570,6 @@ const SvgExpandLight = props => /*#__PURE__*/React.createElement("svg", expand_l
   fill: "#FFF"
 })));
 
-
 /* harmony default export */ const expand_light = ("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyLjA5OTEgMTUuNjc4NUMxMS42OTQgMTYuMTA3MiAxMS4wMTE5IDE2LjEwNzIgMTAuNjA2OCAxNS42Nzg1TDQuOTg4MjggOS43MzEzNkM0LjM2OTg4IDkuMDc2OCA0LjgzMzkzIDggNS43MzQ0MSA4TDE2Ljk3MTUgOEMxNy44NzIgOCAxOC4zMzYgOS4wNzY4IDE3LjcxNzYgOS43MzEzNkwxMi4wOTkxIDE1LjY3ODVaIiBmaWxsPSIjRkZGRkZGIi8+Cjwvc3ZnPgo=");
 // EXTERNAL MODULE: ../../node_modules/react/jsx-runtime.js
 var jsx_runtime = __webpack_require__(322);
@@ -590,7 +579,7 @@ var jsx_runtime = __webpack_require__(322);
 
 
 
-const icons = {
+var icons = {
   "arrow-left": {
     image: circle_arrow_left
   },
@@ -605,11 +594,11 @@ const icons = {
   }
 };
 function Icon(props) {
-  const {
-    iconName,
-    height = "auto",
-    width = "auto"
-  } = props;
+  var iconName = props.iconName,
+    _props$height = props.height,
+    height = _props$height === void 0 ? "auto" : _props$height,
+    _props$width = props.width,
+    width = _props$width === void 0 ? "auto" : _props$width;
   return icons[iconName] ? /*#__PURE__*/(0,jsx_runtime.jsx)("img", {
     height: height,
     width: width,
@@ -620,13 +609,13 @@ function Icon(props) {
 ;// CONCATENATED MODULE: ./src/components/Image.tsx
 
 function Image_Image(props) {
-  const {
-    imageId,
-    height = "auto",
-    width = "auto"
-  } = props;
+  var imageId = props.imageId,
+    _props$height = props.height,
+    height = _props$height === void 0 ? "auto" : _props$height,
+    _props$width = props.width,
+    width = _props$width === void 0 ? "auto" : _props$width;
   return /*#__PURE__*/(0,jsx_runtime.jsx)("img", {
-    src: `https://images.web3auth.io/${imageId}.svg`,
+    src: "https://images.web3auth.io/".concat(imageId, ".svg"),
     height: height,
     width: width,
     alt: imageId
@@ -641,34 +630,27 @@ function Image_Image(props) {
 
 
 
-const DEFAULT_LOGO_URL = "https://images.web3auth.io/web3auth-logo.svg";
-
-const closeIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Icon, {
+var DEFAULT_LOGO_URL = "https://images.web3auth.io/web3auth-logo.svg";
+var closeIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Icon, {
   iconName: "close"
 });
-
 function DetailedLoader(props) {
-  const {
-    adapter,
-    appLogo = DEFAULT_LOGO_URL,
-    message,
-    modalStatus,
-    onClose
-  } = props;
-
-  const web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+  var adapter = props.adapter,
+    _props$appLogo = props.appLogo,
+    appLogo = _props$appLogo === void 0 ? DEFAULT_LOGO_URL : _props$appLogo,
+    message = props.message,
+    modalStatus = props.modalStatus,
+    onClose = props.onClose;
+  var web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
     imageId: "web3auth"
   });
-
-  const providerIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
-    imageId: `login-${adapter}`
+  var providerIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+    imageId: "login-".concat(adapter)
   });
-
-  (0,external_react_.useEffect)(() => {
+  (0,external_react_.useEffect)(function () {
     base_namespaceObject.log.debug("adapter loader re-rendering");
-
     if (modalStatus === MODAL_STATUS.CONNECTED) {
-      setTimeout(() => {
+      setTimeout(function () {
         onClose();
       }, 3000);
     }
@@ -735,29 +717,23 @@ function DetailedLoader(props) {
 
 
 
-
-const Loader_closeIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Icon, {
+var Loader_closeIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Icon, {
   iconName: "close"
 });
-
 function Loader(props) {
-  const {
-    message,
-    modalStatus,
-    label,
-    onClose,
-    canEmit = true
-  } = props;
-
-  const web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+  var message = props.message,
+    modalStatus = props.modalStatus,
+    label = props.label,
+    onClose = props.onClose,
+    _props$canEmit = props.canEmit,
+    canEmit = _props$canEmit === void 0 ? true : _props$canEmit;
+  var web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
     imageId: "web3auth"
   });
-
-  (0,external_react_.useEffect)(() => {
+  (0,external_react_.useEffect)(function () {
     base_namespaceObject.log.debug("loader re-rendering");
-
     if (modalStatus === MODAL_STATUS.CONNECTED && canEmit) {
-      setTimeout(() => {
+      setTimeout(function () {
         onClose();
       }, 3000);
     }
@@ -813,71 +789,70 @@ var external_react_qr_code_default = /*#__PURE__*/__webpack_require__.n(external
 
 
 
-const walletConnectIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+var walletConnectIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
   imageId: "wallet-connect",
   width: "114px"
 });
-
 function formatIOSMobile(params) {
-  const encodedUri = encodeURIComponent(params.uri);
-
+  var encodedUri = encodeURIComponent(params.uri);
   if (params.universalLink) {
-    return `${params.universalLink}/wc?uri=${encodedUri}`;
+    return "".concat(params.universalLink, "/wc?uri=").concat(encodedUri);
   }
-
   if (params.deepLink) {
-    return `${params.deepLink}${params.deepLink.endsWith(":") ? "//" : "/"}wc?uri=${encodedUri}`;
+    return "".concat(params.deepLink).concat(params.deepLink.endsWith(":") ? "//" : "/", "wc?uri=").concat(encodedUri);
   }
-
   return "";
 }
-
 function formatMobileRegistryEntry(entry, walletConnectUri, os) {
-  let platform = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "mobile";
-  const universalLink = entry[platform].universal || "";
-  const deepLink = entry[platform].native || "";
+  var platform = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "mobile";
+  var universalLink = entry[platform].universal || "";
+  var deepLink = entry[platform].native || "";
   return {
     name: entry.name || "",
     logo: entry.logo || "",
-    universalLink,
-    deepLink,
+    universalLink: universalLink,
+    deepLink: deepLink,
     href: os === (external_bowser_default()).OS_MAP.iOS ? formatIOSMobile({
       uri: walletConnectUri,
-      universalLink,
-      deepLink
+      universalLink: universalLink,
+      deepLink: deepLink
     }) : walletConnectUri
   };
 }
-
 function formatMobileRegistry(registry, walletConnectUri, os) {
-  let platform = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "mobile";
-  return Object.values(registry).filter(entry => !!entry[platform].universal || !!entry[platform].native).map(entry => formatMobileRegistryEntry(entry, walletConnectUri, os, platform));
+  var platform = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "mobile";
+  return Object.values(registry).filter(function (entry) {
+    return !!entry[platform].universal || !!entry[platform].native;
+  }).map(function (entry) {
+    return formatMobileRegistryEntry(entry, walletConnectUri, os, platform);
+  });
 }
-
 function WalletConnect(props) {
-  const {
-    walletConnectUri,
-    wcAdapters
-  } = props;
-  const [links, setLinks] = (0,external_react_.useState)([]);
-  const deviceDetails = (0,external_react_.useMemo)(() => {
-    const browser = external_bowser_default().getParser(window.navigator.userAgent);
+  var walletConnectUri = props.walletConnectUri,
+    wcAdapters = props.wcAdapters;
+  var _useState = (0,external_react_.useState)([]),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    links = _useState2[0],
+    setLinks = _useState2[1];
+  var deviceDetails = (0,external_react_.useMemo)(function () {
+    var browser = external_bowser_default().getParser(window.navigator.userAgent);
     return {
       platform: browser.getPlatformType(),
       os: browser.getOSName()
     };
   }, []);
-  (0,external_react_.useEffect)(() => {
+  (0,external_react_.useEffect)(function () {
     if (deviceDetails.platform === (external_bowser_default()).PLATFORMS_MAP.mobile) {
-      const mobileLinks = formatMobileRegistry(wcAdapters, walletConnectUri, deviceDetails.os, deviceDetails.platform);
+      var mobileLinks = formatMobileRegistry(wcAdapters, walletConnectUri, deviceDetails.os, deviceDetails.platform);
       setLinks(mobileLinks);
     }
-  }, [wcAdapters, deviceDetails.os, deviceDetails.platform, walletConnectUri]); // TODO: show only wcAdapters of current chain
+  }, [wcAdapters, deviceDetails.os, deviceDetails.platform, walletConnectUri]);
 
+  // TODO: show only wcAdapters of current chain
   return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     className: "w3ajs-wallet-connect w3a-wallet-connect",
     children: /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
-      className: `w3ajs-wallet-connect__container w3a-wallet-connect__container${deviceDetails.os === (external_bowser_default()).OS_MAP.Android ? " w3a-wallet-connect__container--android" : ""}`,
+      className: "w3ajs-wallet-connect__container w3a-wallet-connect__container".concat(deviceDetails.os === (external_bowser_default()).OS_MAP.Android ? " w3a-wallet-connect__container--android" : ""),
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
         className: "w3a-wallet-connect__logo",
         children: walletConnectIcon
@@ -894,7 +869,7 @@ function WalletConnect(props) {
         })]
       }) : /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
         className: "w3a-wallet-connect__container-btn-group",
-        children: links.map(link => {
+        children: links.map(function (link) {
           return deviceDetails.os === (external_bowser_default()).OS_MAP.iOS ? /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
             className: "w3a-wallet-connect__container-ios",
             children: /*#__PURE__*/(0,jsx_runtime.jsxs)("a", {
@@ -908,7 +883,7 @@ function WalletConnect(props) {
                   src: link.logo,
                   height: "auto",
                   width: "auto",
-                  alt: `login-${link.name}`
+                  alt: "login-".concat(link.name)
                 })
               }), /*#__PURE__*/(0,jsx_runtime.jsx)("p", {
                 className: "w3a-adapter-item__label",
@@ -933,7 +908,6 @@ function WalletConnect(props) {
     })
   });
 }
-
 /* harmony default export */ const components_WalletConnect = (/*#__PURE__*/(0,external_react_.memo)(WalletConnect));
 ;// CONCATENATED MODULE: ./src/components/ExternalWallets.tsx
 
@@ -945,23 +919,24 @@ function WalletConnect(props) {
 
 
 
+
 function ExternalWallet(props) {
-  const {
-    hideExternalWallets,
-    handleExternalWalletClick,
-    config = {},
-    walletConnectUri,
-    showBackButton,
-    modalStatus,
-    wcAdapters
-  } = props;
-  const [isLoaded, setIsLoaded] = (0,external_react_.useState)(false);
-  (0,external_react_.useEffect)(() => {
+  var hideExternalWallets = props.hideExternalWallets,
+    handleExternalWalletClick = props.handleExternalWalletClick,
+    _props$config = props.config,
+    config = _props$config === void 0 ? {} : _props$config,
+    walletConnectUri = props.walletConnectUri,
+    showBackButton = props.showBackButton,
+    modalStatus = props.modalStatus,
+    wcAdapters = props.wcAdapters;
+  var _useState = (0,external_react_.useState)(false),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    isLoaded = _useState2[0],
+    setIsLoaded = _useState2[1];
+  (0,external_react_.useEffect)(function () {
     var _config$WALLET_ADAPTE;
-
     base_namespaceObject.log.debug("loaded external wallets", config, walletConnectUri);
-    const wcAvailable = (((_config$WALLET_ADAPTE = config[base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1]) === null || _config$WALLET_ADAPTE === void 0 ? void 0 : _config$WALLET_ADAPTE.showOnModal) || false) !== false;
-
+    var wcAvailable = (((_config$WALLET_ADAPTE = config[base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1]) === null || _config$WALLET_ADAPTE === void 0 ? void 0 : _config$WALLET_ADAPTE.showOnModal) || false) !== false;
     if (wcAvailable && !walletConnectUri) {
       handleExternalWalletClick({
         adapter: base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1
@@ -987,36 +962,34 @@ function ExternalWallet(props) {
       }), !isLoaded && /*#__PURE__*/(0,jsx_runtime.jsx)(Loader, {
         modalStatus: MODAL_STATUS.CONNECTING,
         canEmit: false
-      }), Object.keys(config).map(adapter => {
+      }), Object.keys(config).map(function (adapter) {
         if (adapter === base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1 || adapter === base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V2) {
           return /*#__PURE__*/(0,jsx_runtime.jsx)(components_WalletConnect, {
             walletConnectUri: walletConnectUri,
             wcAdapters: wcAdapters
           }, adapter);
         }
-
         return null;
       }), modalStatus === MODAL_STATUS.INITIALIZED && /*#__PURE__*/(0,jsx_runtime.jsx)("ul", {
         className: "w3a-adapter-list w3ajs-wallet-adapters",
-        children: Object.keys(config).map(adapter => {
+        children: Object.keys(config).map(function (adapter) {
           var _config$adapter;
-
           if (adapter === base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1 || adapter === base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V2) {
             return null;
-          } // if (allKeys.length - 1 === index && isOthersLoading) setOthersLoading(false);
-
-
-          const providerIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
-            imageId: `login-${adapter}`
+          }
+          // if (allKeys.length - 1 === index && isOthersLoading) setOthersLoading(false);
+          var providerIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+            imageId: "login-".concat(adapter)
           });
-
           return /*#__PURE__*/(0,jsx_runtime.jsxs)("li", {
             className: "w3a-adapter-item",
             children: [/*#__PURE__*/(0,jsx_runtime.jsx)("button", {
               type: "button",
-              onClick: () => handleExternalWalletClick({
-                adapter
-              }),
+              onClick: function onClick() {
+                return handleExternalWalletClick({
+                  adapter: adapter
+                });
+              },
               className: "w3a-button w3a-button--icon",
               children: providerIcon
             }), /*#__PURE__*/(0,jsx_runtime.jsx)("p", {
@@ -1034,18 +1007,13 @@ function ExternalWallet(props) {
 
 
 
-
 function Footer(props) {
-  const {
-    version
-  } = props;
-
-  const web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+  var version = props.version;
+  var web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
     imageId: "web3auth",
     height: "14px",
     width: "auto"
   });
-
   return /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     className: "w3a-modal__footer",
     children: /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
@@ -1074,7 +1042,6 @@ function Footer(props) {
     })
   });
 }
-
 /* harmony default export */ const components_Footer = (/*#__PURE__*/(0,external_react_.memo)(Footer));
 ;// CONCATENATED MODULE: ./src/components/Header.tsx
 
@@ -1083,21 +1050,16 @@ function Footer(props) {
 
 
 
-const Header_DEFAULT_LOGO_URL = "https://images.web3auth.io/web3auth-logo.svg";
-
+var Header_DEFAULT_LOGO_URL = "https://images.web3auth.io/web3auth-logo.svg";
 function Header(props) {
-  const {
-    isDark
-  } = (0,external_react_.useContext)(ThemedContext);
-  const {
-    appLogo = Header_DEFAULT_LOGO_URL,
-    onClose
-  } = props;
-
-  const web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
-    imageId: `web3auth${isDark ? "-light" : ""}`
+  var _useContext = (0,external_react_.useContext)(ThemedContext),
+    isDark = _useContext.isDark;
+  var _props$appLogo = props.appLogo,
+    appLogo = _props$appLogo === void 0 ? Header_DEFAULT_LOGO_URL : _props$appLogo,
+    onClose = props.onClose;
+  var web3authIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+    imageId: "web3auth".concat(isDark ? "-light" : "")
   });
-
   return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     className: "w3a-modal__header",
     children: [/*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
@@ -1125,12 +1087,10 @@ function Header(props) {
     })]
   });
 }
-
-const memoizedHeader = /*#__PURE__*/(0,external_react_.memo)(Header, (prevProps, nextProps) => {
+var memoizedHeader = /*#__PURE__*/(0,external_react_.memo)(Header, function (prevProps, nextProps) {
   if (prevProps.appLogo !== nextProps.appLogo) {
     return true;
   }
-
   return false;
 });
 memoizedHeader.displayName = "Header";
@@ -1139,31 +1099,31 @@ memoizedHeader.displayName = "Header";
 
 
 
-function SocialLoginEmail(props) {
-  const {
-    handleSocialLoginClick,
-    adapter
-  } = props;
-  const [isValidEmail, setIsValidEmail] = (0,external_react_.useState)(false);
 
-  const handleEmailSubmit = e => {
+function SocialLoginEmail(props) {
+  var handleSocialLoginClick = props.handleSocialLoginClick,
+    adapter = props.adapter,
+    MetamaskLogin = props.MetamaskLogin;
+  var _useState = (0,external_react_.useState)(false),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    isValidEmail = _useState2[0],
+    setIsValidEmail = _useState2[1];
+  var handleEmailSubmit = function handleEmailSubmit(e) {
     e.preventDefault();
-    const email = e.target[0].value;
+    var email = e.target[0].value;
     if (email) handleSocialLoginClick({
-      adapter,
+      adapter: adapter,
       loginParams: {
         loginProvider: "email_passwordless",
         login_hint: email
       }
     });
   };
-
-  const handleEmailChange = e => {
-    const email = e.target.value;
-    const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+  var handleEmailChange = function handleEmailChange(e) {
+    var email = e.target.value;
+    var emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
     setIsValidEmail(!!emailValid);
   };
-
   return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     className: "w3ajs-email-passwordless w3a-group w3a-group--email",
     children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
@@ -1171,28 +1131,25 @@ function SocialLoginEmail(props) {
       children: "EMAIL"
     }), /*#__PURE__*/(0,jsx_runtime.jsxs)("form", {
       className: "w3ajs-email-passwordless-form",
-      onSubmit: e => handleEmailSubmit(e),
+      onSubmit: function onSubmit(e) {
+        return handleEmailSubmit(e);
+      },
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)("input", {
         className: "w3a-text-field",
         type: "email",
         name: "email",
         required: true,
         placeholder: "Email",
-        onChange: e => handleEmailChange(e)
+        onChange: function onChange(e) {
+          return handleEmailChange(e);
+        }
       }), /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
         disabled: !isValidEmail,
         className: "w3a-button",
         type: "submit",
         children: "Continue with Email"
       })]
-    }), /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-      className: "w3a-group__metamask_btn",
-      children: /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
-        children: /*#__PURE__*/(0,jsx_runtime.jsx)("p", {
-          children: "Metamask"
-        })
-      })
-    })]
+    }), /*#__PURE__*/(0,jsx_runtime.jsx)(MetamaskLogin, {})]
   });
 }
 ;// CONCATENATED MODULE: external "classnames"
@@ -1206,35 +1163,40 @@ var external_classnames_default = /*#__PURE__*/__webpack_require__.n(external_cl
 
 
 
-const hasLightIcons = ["apple", "github"];
+
+var hasLightIcons = ["apple", "github"];
 function SocialLogins(props) {
-  const [canShowMore, setCanShowMore] = (0,external_react_.useState)(false);
-  const {
-    socialLoginsConfig = {
+  var _useState = (0,external_react_.useState)(false),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    canShowMore = _useState2[0],
+    setCanShowMore = _useState2[1];
+  var _props$socialLoginsCo = props.socialLoginsConfig,
+    socialLoginsConfig = _props$socialLoginsCo === void 0 ? {
       loginMethods: {},
       loginMethodsOrder: [],
       adapter: ""
-    },
-    handleSocialLoginClick
-  } = props;
-  const {
-    isDark
-  } = (0,external_react_.useContext)(ThemedContext);
-  const [isExpanded, setIsExpanded] = (0,external_react_.useState)(false); // Too small a function to use `useCallback`
+    } : _props$socialLoginsCo,
+    handleSocialLoginClick = props.handleSocialLoginClick;
+  var _useContext = (0,external_react_.useContext)(ThemedContext),
+    isDark = _useContext.isDark;
+  var _useState3 = (0,external_react_.useState)(false),
+    _useState4 = slicedToArray_default()(_useState3, 2),
+    isExpanded = _useState4[0],
+    setIsExpanded = _useState4[1];
 
-  const expandClickHandler = () => {
+  // Too small a function to use `useCallback`
+  var expandClickHandler = function expandClickHandler() {
     setIsExpanded(!isExpanded);
   };
-
-  (0,external_react_.useEffect)(() => {
-    const maxOptions = Object.keys(socialLoginsConfig.loginMethods).filter(loginMethodKey => {
+  (0,external_react_.useEffect)(function () {
+    var maxOptions = Object.keys(socialLoginsConfig.loginMethods).filter(function (loginMethodKey) {
       return socialLoginsConfig.loginMethods[loginMethodKey].showOnModal;
     });
     setCanShowMore(maxOptions.length > 5);
   }, [socialLoginsConfig.loginMethods]);
-  const adapterListClass = external_classnames_default()("w3a-adapter-list", "w3ajs-socials-adapters", !isExpanded ? " w3a-adapter-list--shrink" : "");
-  const adapterButtonClass = external_classnames_default()("w3a-button-expand", "w3ajs-button-expand", isExpanded ? "w3a-button--rotate" : "");
-  const adapterExpandText = isExpanded ? "View less options" : "View more options";
+  var adapterListClass = external_classnames_default()("w3a-adapter-list", "w3ajs-socials-adapters", !isExpanded ? " w3a-adapter-list--shrink" : "");
+  var adapterButtonClass = external_classnames_default()("w3a-button-expand", "w3ajs-button-expand", isExpanded ? "w3a-button--rotate" : "");
+  var adapterExpandText = isExpanded ? "View less options" : "View more options";
   return /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
     className: "w3ajs-social-logins w3a-group",
     children: [/*#__PURE__*/(0,jsx_runtime.jsx)("div", {
@@ -1242,30 +1204,30 @@ function SocialLogins(props) {
       children: "CONTINUE WITH"
     }), /*#__PURE__*/(0,jsx_runtime.jsx)("ul", {
       className: adapterListClass,
-      children: Object.keys(socialLoginsConfig.loginMethods).map(method => {
-        const providerIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
-          imageId: `login-${method}${isDark && hasLightIcons.includes(method) ? "-light" : ""}`
+      children: Object.keys(socialLoginsConfig.loginMethods).map(function (method) {
+        var providerIcon = /*#__PURE__*/(0,jsx_runtime.jsx)(Image_Image, {
+          imageId: "login-".concat(method).concat(isDark && hasLightIcons.includes(method) ? "-light" : "")
         });
-
         if (socialLoginsConfig.loginMethods[method].showOnModal === false || method === "webauthn" || method === "jwt" || method === "email_passwordless") {
           return null;
         }
-
-        const orderIndex = socialLoginsConfig.loginMethodsOrder.indexOf(method) + 1;
-        const order = orderIndex || Object.keys(socialLoginsConfig.loginMethods).length + 1;
+        var orderIndex = socialLoginsConfig.loginMethodsOrder.indexOf(method) + 1;
+        var order = orderIndex || Object.keys(socialLoginsConfig.loginMethods).length + 1;
         return /*#__PURE__*/(0,jsx_runtime.jsx)("li", {
           className: "w3a-adapter-item",
           style: {
-            order
+            order: order
           },
           children: /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
             type: "button",
-            onClick: () => handleSocialLoginClick({
-              adapter: socialLoginsConfig.adapter,
-              loginParams: {
-                loginProvider: method
-              }
-            }),
+            onClick: function onClick() {
+              return handleSocialLoginClick({
+                adapter: socialLoginsConfig.adapter,
+                loginParams: {
+                  loginProvider: method
+                }
+              });
+            },
             className: "w3a-button w3a-button--icon",
             children: providerIcon
           })
@@ -1279,7 +1241,7 @@ function SocialLogins(props) {
       },
       onClick: expandClickHandler,
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)(Icon, {
-        iconName: `expand${isDark ? "-light" : ""}`
+        iconName: "expand".concat(isDark ? "-light" : "")
       }), /*#__PURE__*/(0,jsx_runtime.jsx)("span", {
         className: "w3ajs-button-expand-text",
         children: adapterExpandText
@@ -1291,9 +1253,7 @@ function SocialLogins(props) {
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { defineProperty_default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-
 
 
 
@@ -1314,85 +1274,87 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 base_namespaceObject.log.enableAll();
 function Modal(props) {
   var _modalState$socialLog3, _modalState$socialLog6, _modalState$socialLog7;
-
-  const {
-    isDark
-  } = (0,external_react_.useContext)(ThemedContext);
-  const [modalTransitionClasses, setModalTransitionClasses] = (0,external_react_.useState)(["w3a-modal__inner"]);
-  const [modalState, setModalState] = (0,external_react_.useState)({
-    externalWalletsVisibility: false,
-    status: MODAL_STATUS.INITIALIZED,
-    hasExternalWallets: false,
-    externalWalletsInitialized: false,
-    modalVisibility: false,
-    modalVisibilityDelayed: false,
-    postLoadingMessage: "",
-    walletConnectUri: "",
-    socialLoginsConfig: {
-      loginMethods: {},
-      loginMethodsOrder: [],
-      adapter: ""
-    },
-    externalWalletsConfig: {},
-    detailedLoaderAdapter: "",
-    showExternalWalletsOnly: false,
-    wcAdapters: []
-  });
-  const {
-    stateListener,
-    appLogo,
-    version,
-    handleSocialLoginClick,
-    handleExternalWalletClick,
-    handleShowExternalWallets,
-    closeModal
-  } = props;
-  const DETAILED_ADAPTERS = [base_namespaceObject.WALLET_ADAPTERS.PHANTOM, base_namespaceObject.WALLET_ADAPTERS.METAMASK];
-  (0,external_react_.useEffect)(() => {
+  var _useContext = (0,external_react_.useContext)(ThemedContext),
+    isDark = _useContext.isDark;
+  var _useState = (0,external_react_.useState)(["w3a-modal__inner"]),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    modalTransitionClasses = _useState2[0],
+    setModalTransitionClasses = _useState2[1];
+  var _useState3 = (0,external_react_.useState)({
+      externalWalletsVisibility: false,
+      status: MODAL_STATUS.INITIALIZED,
+      hasExternalWallets: false,
+      externalWalletsInitialized: false,
+      modalVisibility: false,
+      modalVisibilityDelayed: false,
+      postLoadingMessage: "",
+      walletConnectUri: "",
+      socialLoginsConfig: {
+        loginMethods: {},
+        loginMethodsOrder: [],
+        adapter: ""
+      },
+      externalWalletsConfig: {},
+      detailedLoaderAdapter: "",
+      showExternalWalletsOnly: false,
+      wcAdapters: []
+    }),
+    _useState4 = slicedToArray_default()(_useState3, 2),
+    modalState = _useState4[0],
+    setModalState = _useState4[1];
+  var stateListener = props.stateListener,
+    appLogo = props.appLogo,
+    version = props.version,
+    handleSocialLoginClick = props.handleSocialLoginClick,
+    handleExternalWalletClick = props.handleExternalWalletClick,
+    handleShowExternalWallets = props.handleShowExternalWallets,
+    closeModal = props.closeModal,
+    MetamaskLogin = props.MetamaskLogin;
+  var DETAILED_ADAPTERS = [base_namespaceObject.WALLET_ADAPTERS.PHANTOM, base_namespaceObject.WALLET_ADAPTERS.METAMASK];
+  (0,external_react_.useEffect)(function () {
     stateListener.emit("MOUNTED");
-    stateListener.on("STATE_UPDATED", newModalState => {
+    stateListener.on("STATE_UPDATED", function (newModalState) {
       base_namespaceObject.log.debug("state updated", newModalState);
-      setModalState(prevState => {
-        const mergedState = external_lodash_clonedeep_default()(external_lodash_merge_default()(prevState, newModalState));
+      setModalState(function (prevState) {
+        var mergedState = external_lodash_clonedeep_default()(external_lodash_merge_default()(prevState, newModalState));
         return mergedState;
       });
     });
   }, [stateListener]);
-  (0,external_react_.useEffect)(() => {
-    let timeOutId;
-
+  (0,external_react_.useEffect)(function () {
+    var timeOutId;
     if (modalState.modalVisibility) {
-      setModalState(prevState => {
+      setModalState(function (prevState) {
         return _objectSpread(_objectSpread({}, prevState), {}, {
           modalVisibilityDelayed: modalState.modalVisibility
         });
       });
-      timeOutId = window.setTimeout(() => {
-        setModalTransitionClasses(["w3a-modal__inner", modalState.modalVisibility ? "w3a-modal__inner--active" : ""]); // hide external wallets, if modal is closing, so that it will show social login screen on reopen.
+      timeOutId = window.setTimeout(function () {
+        setModalTransitionClasses(["w3a-modal__inner", modalState.modalVisibility ? "w3a-modal__inner--active" : ""]);
+        // hide external wallets, if modal is closing, so that it will show social login screen on reopen.
       }, 100);
     } else {
-      setModalTransitionClasses(["w3a-modal__inner", modalState.modalVisibility ? "w3a-modal__inner--active" : ""]); // hide external wallets, if modal is closing, so that it will show social login screen on reopen.
+      setModalTransitionClasses(["w3a-modal__inner", modalState.modalVisibility ? "w3a-modal__inner--active" : ""]);
+      // hide external wallets, if modal is closing, so that it will show social login screen on reopen.
 
-      timeOutId = window.setTimeout(() => {
-        setModalState(prevState => {
+      timeOutId = window.setTimeout(function () {
+        setModalState(function (prevState) {
           return _objectSpread(_objectSpread({}, prevState), {}, {
             modalVisibilityDelayed: modalState.modalVisibility
           });
         });
       }, 250);
     }
-
-    return () => {
+    return function () {
       clearTimeout(timeOutId);
     };
   }, [modalState.modalVisibility]);
-  const onCloseLoader = (0,external_react_.useCallback)(() => {
+  var onCloseLoader = (0,external_react_.useCallback)(function () {
     if (modalState.status === MODAL_STATUS.CONNECTED) {
       closeModal();
     }
-
     if (modalState.status === MODAL_STATUS.ERRORED) {
-      setModalState(prevState => {
+      setModalState(function (prevState) {
         return _objectSpread(_objectSpread({}, prevState), {}, {
           modalVisibility: true,
           status: MODAL_STATUS.INITIALIZED
@@ -1400,33 +1362,28 @@ function Modal(props) {
       });
     }
   }, [closeModal, modalState.status]);
-
-  const preHandleExternalWalletClick = params => {
-    const {
-      adapter
-    } = params;
-    if (DETAILED_ADAPTERS.includes(adapter)) setModalState(prevState => {
+  var preHandleExternalWalletClick = function preHandleExternalWalletClick(params) {
+    var adapter = params.adapter;
+    if (DETAILED_ADAPTERS.includes(adapter)) setModalState(function (prevState) {
       return _objectSpread(_objectSpread({}, prevState), {}, {
         detailedLoaderAdapter: adapter
       });
-    });else if (adapter !== base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1) setModalState(prevState => {
+    });else if (adapter !== base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1) setModalState(function (prevState) {
       return _objectSpread(_objectSpread({}, prevState), {}, {
         detailedLoaderAdapter: ""
       });
     });
     handleExternalWalletClick(params);
   };
-
-  const preHandleSocialWalletClick = params => {
-    setModalState(prevState => {
+  var preHandleSocialWalletClick = function preHandleSocialWalletClick(params) {
+    setModalState(function (prevState) {
       return _objectSpread(_objectSpread({}, prevState), {}, {
         detailedLoaderAdapter: ""
       });
     });
     handleSocialLoginClick(params);
   };
-
-  const externalWalletButton = /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
+  var externalWalletButton = /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     className: "w3ajs-external-wallet w3a-group",
     children: /*#__PURE__*/(0,jsx_runtime.jsxs)("div", {
       className: "w3a-external-toggle w3ajs-external-toggle",
@@ -1436,9 +1393,9 @@ function Modal(props) {
       }), /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
         type: "button",
         className: "w3a-button w3ajs-external-toggle__button",
-        onClick: () => {
+        onClick: function onClick() {
           handleShowExternalWallets(modalState.externalWalletsInitialized);
-          setModalState(prevState => {
+          setModalState(function (prevState) {
             return _objectSpread(_objectSpread({}, prevState), {}, {
               externalWalletsVisibility: true
             });
@@ -1448,26 +1405,25 @@ function Modal(props) {
       })]
     })
   });
-
-  const areSocialLoginsVisible = (0,external_react_.useMemo)(() => {
+  var areSocialLoginsVisible = (0,external_react_.useMemo)(function () {
     var _modalState$socialLog, _modalState$socialLog2;
-
     if (modalState.showExternalWalletsOnly) return false;
     if (Object.keys(((_modalState$socialLog = modalState.socialLoginsConfig) === null || _modalState$socialLog === void 0 ? void 0 : _modalState$socialLog.loginMethods) || {}).length === 0) return false;
-    const isAnySocialLoginVisible = Object.entries(((_modalState$socialLog2 = modalState.socialLoginsConfig) === null || _modalState$socialLog2 === void 0 ? void 0 : _modalState$socialLog2.loginMethods) || {}).some(_ref => {
-      let [k, v] = _ref;
+    var isAnySocialLoginVisible = Object.entries(((_modalState$socialLog2 = modalState.socialLoginsConfig) === null || _modalState$socialLog2 === void 0 ? void 0 : _modalState$socialLog2.loginMethods) || {}).some(function (_ref) {
+      var _ref2 = slicedToArray_default()(_ref, 2),
+        k = _ref2[0],
+        v = _ref2[1];
       return k !== openlogin_namespaceObject.LOGIN_PROVIDER.EMAIL_PASSWORDLESS && v.showOnModal !== false;
     });
     if (isAnySocialLoginVisible) return true;
     return false;
   }, [modalState.showExternalWalletsOnly, (_modalState$socialLog3 = modalState.socialLoginsConfig) === null || _modalState$socialLog3 === void 0 ? void 0 : _modalState$socialLog3.loginMethods]);
   base_namespaceObject.log.info("modal state", modalState, areSocialLoginsVisible);
-  const isEmailPassworedlessLoginVisible = (0,external_react_.useMemo)(() => {
+  var isEmailPassworedlessLoginVisible = (0,external_react_.useMemo)(function () {
     var _modalState$socialLog4, _modalState$socialLog5;
-
     return (_modalState$socialLog4 = modalState.socialLoginsConfig) === null || _modalState$socialLog4 === void 0 ? void 0 : (_modalState$socialLog5 = _modalState$socialLog4.loginMethods[openlogin_namespaceObject.LOGIN_PROVIDER.EMAIL_PASSWORDLESS]) === null || _modalState$socialLog5 === void 0 ? void 0 : _modalState$socialLog5.showOnModal;
   }, [(_modalState$socialLog6 = modalState.socialLoginsConfig) === null || _modalState$socialLog6 === void 0 ? void 0 : _modalState$socialLog6.loginMethods]);
-  const modalClassName = `w3a-modal ${isDark ? "" : " w3a-modal--light"}`;
+  var modalClassName = "w3a-modal ".concat(isDark ? "" : " w3a-modal--light");
   return modalState.modalVisibilityDelayed && /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     id: "w3a-modal",
     className: modalClassName,
@@ -1496,24 +1452,33 @@ function Modal(props) {
         className: "w3a-modal__content w3ajs-content",
         children: (areSocialLoginsVisible || isEmailPassworedlessLoginVisible) && !modalState.externalWalletsVisibility ? /*#__PURE__*/(0,jsx_runtime.jsxs)(jsx_runtime.Fragment, {
           children: [areSocialLoginsVisible ? /*#__PURE__*/(0,jsx_runtime.jsx)(SocialLogins, {
-            handleSocialLoginClick: params => preHandleSocialWalletClick(params),
+            handleSocialLoginClick: function handleSocialLoginClick(params) {
+              return preHandleSocialWalletClick(params);
+            },
             socialLoginsConfig: modalState.socialLoginsConfig
           }) : null, isEmailPassworedlessLoginVisible && /*#__PURE__*/(0,jsx_runtime.jsx)(SocialLoginEmail, {
             adapter: (_modalState$socialLog7 = modalState.socialLoginsConfig) === null || _modalState$socialLog7 === void 0 ? void 0 : _modalState$socialLog7.adapter,
-            handleSocialLoginClick: params => preHandleSocialWalletClick(params)
+            handleSocialLoginClick: function handleSocialLoginClick(params) {
+              return preHandleSocialWalletClick(params);
+            },
+            MetamaskLogin: MetamaskLogin
           }), modalState.hasExternalWallets && externalWalletButton]
         }) : /*#__PURE__*/(0,jsx_runtime.jsx)(ExternalWallet, {
           modalStatus: modalState.status,
           showBackButton: areSocialLoginsVisible,
-          handleExternalWalletClick: params => preHandleExternalWalletClick(params),
+          handleExternalWalletClick: function handleExternalWalletClick(params) {
+            return preHandleExternalWalletClick(params);
+          },
           walletConnectUri: modalState.walletConnectUri,
           wcAdapters: modalState.wcAdapters,
           config: modalState.externalWalletsConfig,
-          hideExternalWallets: () => setModalState(prevState => {
-            return _objectSpread(_objectSpread({}, prevState), {}, {
-              externalWalletsVisibility: false
+          hideExternalWallets: function hideExternalWallets() {
+            return setModalState(function (prevState) {
+              return _objectSpread(_objectSpread({}, prevState), {}, {
+                externalWalletsVisibility: false
+              });
             });
-          })
+          }
         })
       }), /*#__PURE__*/(0,jsx_runtime.jsx)(components_Footer, {
         version: version
@@ -1531,237 +1496,249 @@ function Modal(props) {
 
 
 
-const loginModal_DEFAULT_LOGO_URL = "https://images.web3auth.io/web3auth-logo.svg";
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
+
+
+
+
+
+
+
+var loginModal_DEFAULT_LOGO_URL = "https://images.web3auth.io/web3auth-logo.svg";
 function createWrapper() {
-  const wrapper = document.createElement("section");
+  var wrapper = document.createElement("section");
   wrapper.setAttribute("id", "w3a-container");
   document.body.appendChild(wrapper);
   return wrapper;
 }
-
-class LoginModal extends openlogin_jrpc_namespaceObject.SafeEventEmitter {
-  constructor(_ref) {
-    let {
-      appLogo,
-      version,
-      adapterListener,
-      theme = "light",
-      displayErrorsOnModal = true
-    } = _ref;
-    super();
-
-    defineProperty_default()(this, "appLogo", void 0);
-
-    defineProperty_default()(this, "version", void 0);
-
-    defineProperty_default()(this, "isDark", void 0);
-
-    defineProperty_default()(this, "stateEmitter", void 0);
-
-    defineProperty_default()(this, "displayErrorsOnModal", true);
-
-    defineProperty_default()(this, "initModal", async () => {
-      const darkState = {
-        isDark: this.isDark
-      };
-      return new Promise(resolve => {
-        this.stateEmitter.once("MOUNTED", () => {
-          base_namespaceObject.log.info("rendered");
-          this.setState({
-            status: MODAL_STATUS.INITIALIZED
-          });
-          return resolve();
-        });
-        (0,external_react_dom_namespaceObject.render)( /*#__PURE__*/(0,jsx_runtime.jsx)(ThemedContext.Provider, {
-          value: darkState,
-          children: /*#__PURE__*/(0,jsx_runtime.jsx)(Modal, {
-            closeModal: this.closeModal,
-            stateListener: this.stateEmitter,
-            handleShowExternalWallets: externalWalletsInitialized => this.handleShowExternalWallets(externalWalletsInitialized),
-            handleExternalWalletClick: params => this.handleExternalWalletClick(params),
-            handleSocialLoginClick: params => this.handleSocialLoginClick(params),
-            appLogo: this.appLogo,
-            version: this.version
-          })
-        }), createWrapper());
-      });
-    });
-
-    defineProperty_default()(this, "addSocialLogins", (adapter, loginMethods, loginMethodsOrder) => {
-      this.setState({
+var LoginModal = /*#__PURE__*/function (_SafeEventEmitter) {
+  inherits_default()(LoginModal, _SafeEventEmitter);
+  var _super = _createSuper(LoginModal);
+  function LoginModal(_ref) {
+    var _this;
+    var appLogo = _ref.appLogo,
+      version = _ref.version,
+      adapterListener = _ref.adapterListener,
+      _ref$theme = _ref.theme,
+      theme = _ref$theme === void 0 ? "light" : _ref$theme,
+      _ref$displayErrorsOnM = _ref.displayErrorsOnModal,
+      displayErrorsOnModal = _ref$displayErrorsOnM === void 0 ? true : _ref$displayErrorsOnM,
+      MetamaskLogin = _ref.MetamaskLogin;
+    classCallCheck_default()(this, LoginModal);
+    _this = _super.call(this);
+    defineProperty_default()(assertThisInitialized_default()(_this), "appLogo", void 0);
+    defineProperty_default()(assertThisInitialized_default()(_this), "version", void 0);
+    defineProperty_default()(assertThisInitialized_default()(_this), "isDark", void 0);
+    defineProperty_default()(assertThisInitialized_default()(_this), "stateEmitter", void 0);
+    defineProperty_default()(assertThisInitialized_default()(_this), "displayErrorsOnModal", true);
+    defineProperty_default()(assertThisInitialized_default()(_this), "MetamaskLogin", void 0);
+    defineProperty_default()(assertThisInitialized_default()(_this), "initModal", /*#__PURE__*/asyncToGenerator_default()( /*#__PURE__*/regenerator_default().mark(function _callee() {
+      var darkState;
+      return regenerator_default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              darkState = {
+                isDark: _this.isDark
+              };
+              return _context.abrupt("return", new Promise(function (resolve) {
+                _this.stateEmitter.once("MOUNTED", function () {
+                  base_namespaceObject.log.info("rendered");
+                  _this.setState({
+                    status: MODAL_STATUS.INITIALIZED
+                  });
+                  return resolve();
+                });
+                (0,external_react_dom_namespaceObject.render)( /*#__PURE__*/(0,jsx_runtime.jsx)(ThemedContext.Provider, {
+                  value: darkState,
+                  children: /*#__PURE__*/(0,jsx_runtime.jsx)(Modal, {
+                    closeModal: _this.closeModal,
+                    stateListener: _this.stateEmitter,
+                    handleShowExternalWallets: function handleShowExternalWallets(externalWalletsInitialized) {
+                      return _this.handleShowExternalWallets(externalWalletsInitialized);
+                    },
+                    handleExternalWalletClick: function handleExternalWalletClick(params) {
+                      return _this.handleExternalWalletClick(params);
+                    },
+                    handleSocialLoginClick: function handleSocialLoginClick(params) {
+                      return _this.handleSocialLoginClick(params);
+                    },
+                    appLogo: _this.appLogo,
+                    version: _this.version,
+                    MetamaskLogin: _this.MetamaskLogin
+                  })
+                }), createWrapper());
+              }));
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
+    defineProperty_default()(assertThisInitialized_default()(_this), "addSocialLogins", function (adapter, loginMethods, loginMethodsOrder) {
+      _this.setState({
         socialLoginsConfig: {
-          adapter,
-          loginMethods,
-          loginMethodsOrder
+          adapter: adapter,
+          loginMethods: loginMethods,
+          loginMethodsOrder: loginMethodsOrder
         }
       });
       base_namespaceObject.log.info("addSocialLogins", adapter, loginMethods, loginMethodsOrder);
     });
-
-    defineProperty_default()(this, "addWalletLogins", (externalWalletsConfig, options) => {
-      this.setState({
-        externalWalletsConfig,
+    defineProperty_default()(assertThisInitialized_default()(_this), "addWalletLogins", function (externalWalletsConfig, options) {
+      _this.setState({
+        externalWalletsConfig: externalWalletsConfig,
         externalWalletsInitialized: true,
         showExternalWalletsOnly: !!(options !== null && options !== void 0 && options.showExternalWalletsOnly),
         externalWalletsVisibility: true
       });
     });
-
-    defineProperty_default()(this, "open", () => {
-      this.setState({
+    defineProperty_default()(assertThisInitialized_default()(_this), "open", function () {
+      _this.setState({
         modalVisibility: true
       });
-      this.emit(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, true);
+      _this.emit(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, true);
     });
-
-    defineProperty_default()(this, "closeModal", () => {
-      this.setState({
+    defineProperty_default()(assertThisInitialized_default()(_this), "closeModal", function () {
+      _this.setState({
         modalVisibility: false,
         externalWalletsVisibility: false
       });
-      this.emit(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, false);
+      _this.emit(LOGIN_MODAL_EVENTS.MODAL_VISIBILITY, false);
     });
-
-    defineProperty_default()(this, "initExternalWalletContainer", () => {
-      this.setState({
+    defineProperty_default()(assertThisInitialized_default()(_this), "initExternalWalletContainer", function () {
+      _this.setState({
         hasExternalWallets: true
       });
     });
-
-    defineProperty_default()(this, "handleShowExternalWallets", status => {
-      this.emit(LOGIN_MODAL_EVENTS.INIT_EXTERNAL_WALLETS, {
+    defineProperty_default()(assertThisInitialized_default()(_this), "handleShowExternalWallets", function (status) {
+      _this.emit(LOGIN_MODAL_EVENTS.INIT_EXTERNAL_WALLETS, {
         externalWalletsInitialized: status
       });
     });
-
-    defineProperty_default()(this, "handleExternalWalletClick", params => {
+    defineProperty_default()(assertThisInitialized_default()(_this), "handleExternalWalletClick", function (params) {
       base_namespaceObject.log.info("external wallet clicked", params);
-      const {
-        adapter
-      } = params;
-      this.emit(LOGIN_MODAL_EVENTS.LOGIN, {
-        adapter
+      var adapter = params.adapter;
+      _this.emit(LOGIN_MODAL_EVENTS.LOGIN, {
+        adapter: adapter
       });
     });
-
-    defineProperty_default()(this, "handleSocialLoginClick", params => {
+    defineProperty_default()(assertThisInitialized_default()(_this), "handleSocialLoginClick", function (params) {
       base_namespaceObject.log.info("social login clicked", params);
-      const {
-        adapter,
-        loginParams
-      } = params;
-      this.emit(LOGIN_MODAL_EVENTS.LOGIN, {
-        adapter,
+      var adapter = params.adapter,
+        loginParams = params.loginParams;
+      _this.emit(LOGIN_MODAL_EVENTS.LOGIN, {
+        adapter: adapter,
         loginParams: {
           loginProvider: loginParams.loginProvider,
           login_hint: loginParams.login_hint
         }
       });
     });
-
-    defineProperty_default()(this, "setState", newState => {
-      this.stateEmitter.emit("STATE_UPDATED", newState);
+    defineProperty_default()(assertThisInitialized_default()(_this), "setState", function (newState) {
+      _this.stateEmitter.emit("STATE_UPDATED", newState);
     });
-
-    defineProperty_default()(this, "updateWalletConnect", (walletConnectUri, wcAdapters) => {
+    defineProperty_default()(assertThisInitialized_default()(_this), "updateWalletConnect", function (walletConnectUri, wcAdapters) {
       if (!walletConnectUri) return;
-      this.setState({
-        walletConnectUri,
-        wcAdapters
+      _this.setState({
+        walletConnectUri: walletConnectUri,
+        wcAdapters: wcAdapters
       });
     });
-
-    defineProperty_default()(this, "handleAdapterData", adapterData => {
+    defineProperty_default()(assertThisInitialized_default()(_this), "handleAdapterData", function (adapterData) {
       if (adapterData.adapterName === base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1) {
-        const walletConnectData = adapterData.data;
-        this.updateWalletConnect(walletConnectData.uri, walletConnectData.extensionAdapters);
+        var walletConnectData = adapterData.data;
+        _this.updateWalletConnect(walletConnectData.uri, walletConnectData.extensionAdapters);
       }
     });
-
-    defineProperty_default()(this, "subscribeCoreEvents", listener => {
-      listener.on(base_namespaceObject.ADAPTER_EVENTS.CONNECTING, data => {
-        base_namespaceObject.log.info("connecting with adapter", data); // don't show loader in case of wallet connect, because currently it listens for incoming for incoming
+    defineProperty_default()(assertThisInitialized_default()(_this), "subscribeCoreEvents", function (listener) {
+      listener.on(base_namespaceObject.ADAPTER_EVENTS.CONNECTING, function (data) {
+        base_namespaceObject.log.info("connecting with adapter", data);
+        // don't show loader in case of wallet connect, because currently it listens for incoming for incoming
         // connections without any user interaction.
-
         if ((data === null || data === void 0 ? void 0 : data.adapter) !== base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V1 && (data === null || data === void 0 ? void 0 : data.adapter) !== base_namespaceObject.WALLET_ADAPTERS.WALLET_CONNECT_V2) {
           // const provider = data?.loginProvider || "";
-          this.setState({
+
+          _this.setState({
             status: MODAL_STATUS.CONNECTING
           });
         }
       });
-      listener.on(base_namespaceObject.ADAPTER_EVENTS.CONNECTED, data => {
-        base_namespaceObject.log.debug("connected with adapter", data); // only show success if not being reconnected again.
-
+      listener.on(base_namespaceObject.ADAPTER_EVENTS.CONNECTED, function (data) {
+        base_namespaceObject.log.debug("connected with adapter", data);
+        // only show success if not being reconnected again.
         if (!data.reconnected) {
-          this.setState({
+          _this.setState({
             status: MODAL_STATUS.CONNECTED,
             modalVisibility: true,
             postLoadingMessage: "You are connected with your account"
           });
         } else {
-          this.setState({
+          _this.setState({
             status: MODAL_STATUS.CONNECTED
           });
         }
       });
-      listener.on(base_namespaceObject.ADAPTER_EVENTS.ERRORED, error => {
+      listener.on(base_namespaceObject.ADAPTER_EVENTS.ERRORED, function (error) {
         base_namespaceObject.log.error("error", error, error.message);
-
         if (error.code === 5000) {
-          if (this.displayErrorsOnModal) this.setState({
+          if (_this.displayErrorsOnModal) _this.setState({
             modalVisibility: true,
             postLoadingMessage: error.message || "Something went wrong!",
             status: MODAL_STATUS.ERRORED
-          });else this.setState({
+          });else _this.setState({
             modalVisibility: false
           });
         } else {
-          this.setState({
+          _this.setState({
             modalVisibility: true,
             status: MODAL_STATUS.INITIALIZED
           });
         }
       });
-      listener.on(base_namespaceObject.ADAPTER_EVENTS.DISCONNECTED, () => {
-        this.setState({
+      listener.on(base_namespaceObject.ADAPTER_EVENTS.DISCONNECTED, function () {
+        _this.setState({
           status: MODAL_STATUS.INITIALIZED,
           externalWalletsVisibility: false
-        }); // this.toggleMessage("");
+        });
+        // this.toggleMessage("");
       });
-      listener.on(base_namespaceObject.ADAPTER_EVENTS.ADAPTER_DATA_UPDATED, adapterData => {
-        this.handleAdapterData(adapterData);
+
+      listener.on(base_namespaceObject.ADAPTER_EVENTS.ADAPTER_DATA_UPDATED, function (adapterData) {
+        _this.handleAdapterData(adapterData);
       });
     });
-
-    this.appLogo = appLogo || loginModal_DEFAULT_LOGO_URL;
-    this.version = version;
-    this.isDark = theme === "dark";
-    this.stateEmitter = new openlogin_jrpc_namespaceObject.SafeEventEmitter();
-    this.displayErrorsOnModal = displayErrorsOnModal;
-    this.subscribeCoreEvents(adapterListener);
+    _this.appLogo = appLogo || loginModal_DEFAULT_LOGO_URL;
+    _this.version = version;
+    _this.isDark = theme === "dark";
+    _this.stateEmitter = new openlogin_jrpc_namespaceObject.SafeEventEmitter();
+    _this.displayErrorsOnModal = displayErrorsOnModal;
+    _this.subscribeCoreEvents(adapterListener);
+    _this.MetamaskLogin = MetamaskLogin;
+    return _this;
   }
+  return createClass_default()(LoginModal);
+}(openlogin_jrpc_namespaceObject.SafeEventEmitter);
 
-}
 // EXTERNAL MODULE: ./css/network.css
 var network = __webpack_require__(883);
 ;// CONCATENATED MODULE: ./src/utils.ts
 
 
-function utils_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
+function utils_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function utils_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? utils_ownKeys(Object(source), !0).forEach(function (key) { defineProperty_default()(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : utils_ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 
 
-
-const getAdapterSocialLogins = function (adapterName, adapter) {
-  let loginMethodsConfig = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  const finalLoginMethodsConfig = {};
-
+var getAdapterSocialLogins = function getAdapterSocialLogins(adapterName, adapter) {
+  var loginMethodsConfig = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var finalLoginMethodsConfig = {};
   if (adapterName === base_namespaceObject.WALLET_ADAPTERS.OPENLOGIN) {
-    OPENLOGIN_PROVIDERS.forEach(loginMethod => {
-      const currentLoginMethodConfig = loginMethodsConfig[loginMethod] || {
+    OPENLOGIN_PROVIDERS.forEach(function (loginMethod) {
+      var currentLoginMethodConfig = loginMethodsConfig[loginMethod] || {
         name: loginMethod,
         showOnMobile: true,
         showOnModal: true,
@@ -1771,44 +1748,84 @@ const getAdapterSocialLogins = function (adapterName, adapter) {
     });
     base_namespaceObject.log.debug("OpenLogin login method ui config", finalLoginMethodsConfig);
   } else {
-    throw new Error(`${adapterName} is not a valid adapter`);
+    throw new Error("".concat(adapterName, " is not a valid adapter"));
   }
-
   return finalLoginMethodsConfig;
 };
-async function validateImageUrl(url) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.src = url;
-
-    if (img.complete) {
-      resolve(true);
-    } else {
-      img.addEventListener("load", () => {
-        resolve(true);
-      });
-      img.addEventListener("error", () => {
-        reject();
-      });
-    }
-  });
+function validateImageUrl(_x) {
+  return _validateImageUrl.apply(this, arguments);
 }
-async function getNetworkIconId(ticker) {
-  const fallbackId = "network-default";
-  if (!ticker) return fallbackId;
-
-  try {
-    const url = `https://images.web3auth.io/network-${ticker.toLowerCase()}.svg`;
-    const isValid = await validateImageUrl(url);
-
-    if (isValid) {
-      return `network-${ticker.toLowerCase()}`;
-    }
-
-    return fallbackId;
-  } catch {
-    return fallbackId;
-  }
+function _validateImageUrl() {
+  _validateImageUrl = asyncToGenerator_default()( /*#__PURE__*/regenerator_default().mark(function _callee(url) {
+    return regenerator_default().wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              var img = new Image();
+              img.src = url;
+              if (img.complete) {
+                resolve(true);
+              } else {
+                img.addEventListener("load", function () {
+                  resolve(true);
+                });
+                img.addEventListener("error", function () {
+                  reject();
+                });
+              }
+            }));
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _validateImageUrl.apply(this, arguments);
+}
+function getNetworkIconId(_x2) {
+  return _getNetworkIconId.apply(this, arguments);
+}
+function _getNetworkIconId() {
+  _getNetworkIconId = asyncToGenerator_default()( /*#__PURE__*/regenerator_default().mark(function _callee2(ticker) {
+    var fallbackId, url, isValid;
+    return regenerator_default().wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            fallbackId = "network-default";
+            if (ticker) {
+              _context2.next = 3;
+              break;
+            }
+            return _context2.abrupt("return", fallbackId);
+          case 3:
+            _context2.prev = 3;
+            url = "https://images.web3auth.io/network-".concat(ticker.toLowerCase(), ".svg");
+            _context2.next = 7;
+            return validateImageUrl(url);
+          case 7:
+            isValid = _context2.sent;
+            if (!isValid) {
+              _context2.next = 10;
+              break;
+            }
+            return _context2.abrupt("return", "network-".concat(ticker.toLowerCase()));
+          case 10:
+            return _context2.abrupt("return", fallbackId);
+          case 13:
+            _context2.prev = 13;
+            _context2.t0 = _context2["catch"](3);
+            return _context2.abrupt("return", fallbackId);
+          case 16:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2, null, [[3, 13]]);
+  }));
+  return _getNetworkIconId.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: ./src/components/AddNetwork.tsx
 
@@ -1818,18 +1835,22 @@ async function getNetworkIconId(ticker) {
 
 
 function AddNetwork(props) {
-  const {
-    chainConfig,
-    appOrigin,
-    onAddNetwork,
-    onCancelNetwork
-  } = props;
-  const [showModal, setShowModal] = (0,external_react_.useState)(true);
-  const [networkIconId, setNetworkIconId] = (0,external_react_.useState)("network-default");
-  (0,external_react_.useEffect)(() => {
-    getNetworkIconId(chainConfig.ticker).then(id => {
+  var chainConfig = props.chainConfig,
+    appOrigin = props.appOrigin,
+    onAddNetwork = props.onAddNetwork,
+    onCancelNetwork = props.onCancelNetwork;
+  var _useState = (0,external_react_.useState)(true),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    showModal = _useState2[0],
+    setShowModal = _useState2[1];
+  var _useState3 = (0,external_react_.useState)("network-default"),
+    _useState4 = slicedToArray_default()(_useState3, 2),
+    networkIconId = _useState4[0],
+    setNetworkIconId = _useState4[1];
+  (0,external_react_.useEffect)(function () {
+    getNetworkIconId(chainConfig.ticker).then(function (id) {
       return setNetworkIconId(id);
-    }).catch(() => {});
+    }).catch(function () {});
   }, [chainConfig.ticker]);
   return showModal && /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     id: "w3a-modal-network",
@@ -1863,7 +1884,7 @@ function AddNetwork(props) {
         children: [/*#__PURE__*/(0,jsx_runtime.jsx)("button", {
           type: "button",
           className: "w3a-button",
-          onClick: () => {
+          onClick: function onClick() {
             setShowModal(false);
             onCancelNetwork();
           },
@@ -1871,7 +1892,7 @@ function AddNetwork(props) {
         }), /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
           type: "button",
           className: "w3a-button w3a-button--primary",
-          onClick: () => {
+          onClick: function onClick() {
             setShowModal(false);
             onAddNetwork(chainConfig.chainId);
           },
@@ -1881,7 +1902,6 @@ function AddNetwork(props) {
     })
   });
 }
-
 /* harmony default export */ const components_AddNetwork = (AddNetwork);
 ;// CONCATENATED MODULE: ./src/components/SwitchNetwork.tsx
 
@@ -1891,23 +1911,30 @@ function AddNetwork(props) {
 
 
 function SwitchNetwork(props) {
-  const {
-    currentChainConfig,
-    newChainConfig,
-    appOrigin,
-    onSwitchNetwork,
-    onCancelNetwork
-  } = props;
-  const [showModal, setShowModal] = (0,external_react_.useState)(true);
-  const [fromNetworkIconId, setFromNetworkIconId] = (0,external_react_.useState)("network-default");
-  const [toNetworkIconId, setToNetworkIconId] = (0,external_react_.useState)("network-default");
-  (0,external_react_.useEffect)(() => {
-    getNetworkIconId(currentChainConfig.ticker).then(id => {
+  var currentChainConfig = props.currentChainConfig,
+    newChainConfig = props.newChainConfig,
+    appOrigin = props.appOrigin,
+    onSwitchNetwork = props.onSwitchNetwork,
+    onCancelNetwork = props.onCancelNetwork;
+  var _useState = (0,external_react_.useState)(true),
+    _useState2 = slicedToArray_default()(_useState, 2),
+    showModal = _useState2[0],
+    setShowModal = _useState2[1];
+  var _useState3 = (0,external_react_.useState)("network-default"),
+    _useState4 = slicedToArray_default()(_useState3, 2),
+    fromNetworkIconId = _useState4[0],
+    setFromNetworkIconId = _useState4[1];
+  var _useState5 = (0,external_react_.useState)("network-default"),
+    _useState6 = slicedToArray_default()(_useState5, 2),
+    toNetworkIconId = _useState6[0],
+    setToNetworkIconId = _useState6[1];
+  (0,external_react_.useEffect)(function () {
+    getNetworkIconId(currentChainConfig.ticker).then(function (id) {
       return setFromNetworkIconId(id);
-    }).catch(() => {});
-    getNetworkIconId(newChainConfig.ticker).then(id => {
+    }).catch(function () {});
+    getNetworkIconId(newChainConfig.ticker).then(function (id) {
       return setToNetworkIconId(id);
-    }).catch(() => {});
+    }).catch(function () {});
   }, [currentChainConfig.chainId, currentChainConfig.ticker, newChainConfig.chainId, newChainConfig.ticker]);
   return showModal && /*#__PURE__*/(0,jsx_runtime.jsx)("div", {
     id: "w3a-modal-network",
@@ -1963,7 +1990,7 @@ function SwitchNetwork(props) {
         children: [/*#__PURE__*/(0,jsx_runtime.jsx)("button", {
           type: "button",
           className: "w3a-button",
-          onClick: () => {
+          onClick: function onClick() {
             setShowModal(false);
             onCancelNetwork();
           },
@@ -1971,7 +1998,7 @@ function SwitchNetwork(props) {
         }), /*#__PURE__*/(0,jsx_runtime.jsx)("button", {
           type: "button",
           className: "w3a-button w3a-button--primary",
-          onClick: () => {
+          onClick: function onClick() {
             setShowModal(false);
             onSwitchNetwork(currentChainConfig.chainId, newChainConfig.chainId);
           },
@@ -1981,9 +2008,17 @@ function SwitchNetwork(props) {
     })
   });
 }
-
 /* harmony default export */ const components_SwitchNetwork = (SwitchNetwork);
 ;// CONCATENATED MODULE: ./src/networkSwitch.tsx
+
+
+
+
+
+
+
+function networkSwitch_createSuper(Derived) { var hasNativeReflectConstruct = networkSwitch_isNativeReflectConstruct(); return function _createSuperInternal() { var Super = getPrototypeOf_default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = getPrototypeOf_default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return possibleConstructorReturn_default()(this, result); }; }
+function networkSwitch_isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 /* eslint-disable class-methods-use-this */
 
 
@@ -1991,68 +2026,100 @@ function SwitchNetwork(props) {
 
 
 
-
 function networkSwitch_createWrapper(id) {
-  const element = document.getElementById(id || "w3a-network-container");
+  var element = document.getElementById(id || "w3a-network-container");
   if (element) return element;
-  const wrapper = document.createElement("section");
+  var wrapper = document.createElement("section");
   wrapper.setAttribute("id", id || "w3a-network-container");
   document.body.appendChild(wrapper);
   return wrapper;
 }
-
-class NetworkSwitch extends base_namespaceObject.BaseNetworkSwitch {
-  async addNetwork(params) {
-    const {
-      chainConfig,
-      appOrigin
-    } = params;
-    return new Promise((resolve, reject) => {
-      const addNetworkCallback = () => {
-        return resolve(true);
-      };
-
-      const cancelCallback = () => {
-        return reject(new Error("User cancelled request for adding new network"));
-      };
-
-      (0,external_react_dom_namespaceObject.render)( /*#__PURE__*/(0,jsx_runtime.jsx)(components_AddNetwork, {
-        appOrigin: appOrigin,
-        chainConfig: chainConfig,
-        onAddNetwork: addNetworkCallback,
-        onCancelNetwork: cancelCallback
-      }), networkSwitch_createWrapper("w3a-add-network-container"));
-    });
+var NetworkSwitch = /*#__PURE__*/function (_BaseNetworkSwitch) {
+  inherits_default()(NetworkSwitch, _BaseNetworkSwitch);
+  var _super = networkSwitch_createSuper(NetworkSwitch);
+  function NetworkSwitch() {
+    classCallCheck_default()(this, NetworkSwitch);
+    return _super.apply(this, arguments);
   }
-
-  async switchNetwork(params) {
-    const {
-      currentChainConfig,
-      appOrigin,
-      newChainConfig
-    } = params;
-    return new Promise((resolve, reject) => {
-      const switchNetworkCallback = () => {
-        return resolve(true);
-      };
-
-      const cancelCallback = () => {
-        return reject(new Error("User cancelled request for adding new network"));
-      };
-
-      (0,external_react_dom_namespaceObject.render)( /*#__PURE__*/(0,jsx_runtime.jsx)(components_SwitchNetwork, {
-        appOrigin: appOrigin,
-        currentChainConfig: currentChainConfig,
-        newChainConfig: newChainConfig,
-        onSwitchNetwork: switchNetworkCallback,
-        onCancelNetwork: cancelCallback
-      }), networkSwitch_createWrapper("w3a-switch-network-container"));
-    });
-  }
-
-  cancel() {}
-
-}
+  createClass_default()(NetworkSwitch, [{
+    key: "addNetwork",
+    value: function () {
+      var _addNetwork = asyncToGenerator_default()( /*#__PURE__*/regenerator_default().mark(function _callee(params) {
+        var chainConfig, appOrigin;
+        return regenerator_default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                chainConfig = params.chainConfig, appOrigin = params.appOrigin;
+                return _context.abrupt("return", new Promise(function (resolve, reject) {
+                  var addNetworkCallback = function addNetworkCallback() {
+                    return resolve(true);
+                  };
+                  var cancelCallback = function cancelCallback() {
+                    return reject(new Error("User cancelled request for adding new network"));
+                  };
+                  (0,external_react_dom_namespaceObject.render)( /*#__PURE__*/(0,jsx_runtime.jsx)(components_AddNetwork, {
+                    appOrigin: appOrigin,
+                    chainConfig: chainConfig,
+                    onAddNetwork: addNetworkCallback,
+                    onCancelNetwork: cancelCallback
+                  }), networkSwitch_createWrapper("w3a-add-network-container"));
+                }));
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+      function addNetwork(_x) {
+        return _addNetwork.apply(this, arguments);
+      }
+      return addNetwork;
+    }()
+  }, {
+    key: "switchNetwork",
+    value: function () {
+      var _switchNetwork = asyncToGenerator_default()( /*#__PURE__*/regenerator_default().mark(function _callee2(params) {
+        var currentChainConfig, appOrigin, newChainConfig;
+        return regenerator_default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                currentChainConfig = params.currentChainConfig, appOrigin = params.appOrigin, newChainConfig = params.newChainConfig;
+                return _context2.abrupt("return", new Promise(function (resolve, reject) {
+                  var switchNetworkCallback = function switchNetworkCallback() {
+                    return resolve(true);
+                  };
+                  var cancelCallback = function cancelCallback() {
+                    return reject(new Error("User cancelled request for adding new network"));
+                  };
+                  (0,external_react_dom_namespaceObject.render)( /*#__PURE__*/(0,jsx_runtime.jsx)(components_SwitchNetwork, {
+                    appOrigin: appOrigin,
+                    currentChainConfig: currentChainConfig,
+                    newChainConfig: newChainConfig,
+                    onSwitchNetwork: switchNetworkCallback,
+                    onCancelNetwork: cancelCallback
+                  }), networkSwitch_createWrapper("w3a-switch-network-container"));
+                }));
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+      function switchNetwork(_x2) {
+        return _switchNetwork.apply(this, arguments);
+      }
+      return switchNetwork;
+    }()
+  }, {
+    key: "cancel",
+    value: function cancel() {}
+  }]);
+  return NetworkSwitch;
+}(base_namespaceObject.BaseNetworkSwitch);
 ;// CONCATENATED MODULE: ./src/index.ts
 
 
